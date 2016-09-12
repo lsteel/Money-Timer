@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import TimePunch from '../TimePunch/TimePunch'
 
-class Thing extends React.Component {
+class TimePunchContainer extends React.Component {
 
   constructor(props) {
     super(props)
@@ -16,4 +17,4 @@ class Thing extends React.Component {
 
 }
 
-export default Thing
+export default TimePunchContainer

@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import Thing from '../Thing/Thing'
+import MenuIcon from '../MenuIcon/MenuIcon'
+import Search from '../Search/Search'
+import TimePunchContainer from '../TimePunchContainer/TimePunchContainer'
+import TimePuncherContainer from '../TimePuncherContainer/TimePuncherContainer'
+import TimerContainer from '../TimerContainer/TimerContainer'
 
 class App extends Component {
   constructor(props) {
@@ -10,7 +14,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Thing />
+        <MenuIcon />
+        <Search />
+        <TimePunchContainer />
+        <TimePuncherContainer />
+        <TimerContainer />
       </div>
     )
   }
