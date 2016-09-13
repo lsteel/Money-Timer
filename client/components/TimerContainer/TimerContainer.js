@@ -8,8 +8,10 @@ class TimerContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        asdf
+      <div className="row">
+        <div className="col-xs-12">
+          Timer Container
+        </div>
       </div>
     )
   }

@@ -8,8 +8,12 @@ class MenuIcon extends React.Component {
 
   render() {
     return (
-      <div>
-        asdf
+      <div className="row">
+        <div className="col-xs-12">
+          <button className="btn btn-default">
+            <span className="glyphicon glyphicon-cog"></span>
+          </button>
+        </div>
       </div>
     )
   }

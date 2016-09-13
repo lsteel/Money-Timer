@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styles from './App.css'
 import MenuIcon from '../MenuIcon/MenuIcon'
 import Search from '../Search/Search'
 import TimePunchContainer from '../TimePunchContainer/TimePunchContainer'
@@ -13,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <MenuIcon />
         <Search />
         <TimePunchContainer />
