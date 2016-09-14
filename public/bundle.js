@@ -21475,6 +21475,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -21489,25 +21491,66 @@
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
+	    _this.createTimePunch = _this.createTimePunch.bind(_this);
+	    _this.setPay = _this.setPay.bind(_this);
+	    _this.setRate = _this.setRate.bind(_this);
+	    _this.getHourly = _this.getHourly.bind(_this);
 	    _this.state = {
+	      autoId: 1,
 	      pay: 12,
 	      rate: 'hourly',
 	      timing: false,
-	      timePunches: []
+	      timePunches: [{
+	        id: 1,
+	        timeStart: new Date().getTime() - 100000,
+	        timeEnd: new Date().getTime()
+	      }, {
+	        id: 2,
+	        timeStart: new Date().getTime() - 1000000,
+	        timeEnd: new Date().getTime() - 200000
+	      }]
 	    };
 	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'createTimePunch',
+	    value: function createTimePunch(timeStart, timeEnd) {
+	      this.setState({
+	        autoId: this.state.autoId + 1,
+	        timePunches: [].concat(_toConsumableArray(this.state.timePunches), [{
+	          id: this.state.autoId,
+	          timeStart: timeStart,
+	          timeEnd: timeEnd
+	        }])
+	      });
+	    }
+	  }, {
+	    key: 'setPay',
+	    value: function setPay() {}
+	  }, {
+	    key: 'setRate',
+	    value: function setRate() {}
+	  }, {
+	    key: 'getHourly',
+	    value: function getHourly(pay, rate) {
+	      if (rate === "yearly") {
+	        return pay / 2087;
+	      } else {
+	        return pay;
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var hourly = this.getHourly(this.state.pay, this.state.rate);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container-fluid' },
-	        _react2.default.createElement(_MenuIcon2.default, null),
+	        _react2.default.createElement(_MenuIcon2.default, { pay: this.state.pay, rate: this.state.rate }),
 	        _react2.default.createElement(_Filter2.default, null),
-	        _react2.default.createElement(_TimePunchContainer2.default, null),
-	        _react2.default.createElement(_TimePuncherContainer2.default, null),
+	        _react2.default.createElement(_TimePunchContainer2.default, { hourly: hourly, timePunches: this.state.timePunches }),
+	        _react2.default.createElement(_TimePuncherContainer2.default, { timePunches: this.state.timePunches, timing: this.state.timing }),
 	        _react2.default.createElement(_TimerContainer2.default, null)
 	      );
 	    }
@@ -22036,10 +22079,14 @@
 	  _createClass(TimePunchContainer, [{
 	    key: 'render',
 	    value: function render() {
+	      var hourly = this.props.hourly;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        _react2.default.createElement(_TimePunch2.default, null)
+	        this.props.timePunches.map(function (timePunch) {
+	          return _react2.default.createElement(_TimePunch2.default, { key: timePunch.id, hourly: hourly, timePunch: timePunch });
+	        })
 	      );
 	    }
 	  }]);
@@ -22053,7 +22100,7 @@
 /* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22079,36 +22126,69 @@
 	  function TimePunch(props) {
 	    _classCallCheck(this, TimePunch);
 
-	    return _possibleConstructorReturn(this, (TimePunch.__proto__ || Object.getPrototypeOf(TimePunch)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (TimePunch.__proto__ || Object.getPrototypeOf(TimePunch)).call(this, props));
+
+	    _this.getHourMin = _this.getHourMin.bind(_this);
+	    _this.getTotalTime = _this.getTotalTime.bind(_this);
+	    _this.getTotalPay = _this.getTotalPay.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(TimePunch, [{
-	    key: "render",
+	    key: 'getHourMin',
+	    value: function getHourMin(date) {
+	      var hourMin = new Date(date).toLocaleTimeString("en-US", { hour: 'numeric', minute: "2-digit" });
+	      hourMin = hourMin.replace(' ', '').toLowerCase();
+	      return hourMin;
+	    }
+	  }, {
+	    key: 'getTotalTime',
+	    value: function getTotalTime(dateDifference) {
+	      var hours = parseInt(dateDifference / 1000 / 60 / 60);
+	      var mins = parseInt(Math.round(dateDifference / 1000 / 60));
+	      var totalString = hours + 'h ' + mins + 'm';
+	      return totalString;
+	    }
+	  }, {
+	    key: 'getTotalPay',
+	    value: function getTotalPay(hourly, difference) {
+	      var num = hourly * (difference / 1000 / 60 / 60);
+	      return Math.round((num + 0.00001) * 100) / 100;
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
+	      var difference = this.props.timePunch.timeEnd - this.props.timePunch.timeStart;
+	      var totalTime = this.getTotalTime(difference);
+	      var totalPay = this.getTotalPay(this.props.hourly, difference);
+	      var timeStart = this.getHourMin(this.props.timePunch.timeStart);
+	      var timeEnd = this.getHourMin(this.props.timePunch.timeEnd);
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "timePunch col-xs-12" },
+	        'div',
+	        { className: 'timePunch col-xs-12' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "well col-xs-12" },
+	          'div',
+	          { className: 'well col-xs-12' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "col-xs-6" },
+	            'div',
+	            { className: 'col-xs-9' },
 	            _react2.default.createElement(
-	              "div",
+	              'div',
 	              null,
-	              "8h 16m"
+	              totalTime
 	            ),
 	            _react2.default.createElement(
-	              "div",
+	              'div',
 	              null,
-	              "9:48am - 6:04pm"
+	              timeStart,
+	              ' - ',
+	              timeEnd
 	            )
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { className: "col-xs-6 text-right" },
-	            "$200.69"
+	            'div',
+	            { className: 'col-xs-3 text-right' },
+	            '$' + totalPay
 	          )
 	        )
 	      );

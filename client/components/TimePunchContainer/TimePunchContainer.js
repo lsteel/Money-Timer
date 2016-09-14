@@ -8,9 +8,15 @@ class TimePunchContainer extends React.Component {
   }
 
   render() {
+    var hourly = this.props.hourly
+
     return (
       <div className="row">
-        <TimePunch />
+        {this.props.timePunches.map((timePunch) => {
+          return (
+            <TimePunch key={timePunch.id} hourly={hourly} timePunch={timePunch} />
+          )
+        })}
       </div>
     )
   }
