@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Timer from '../Timer/Timer'
 
 class TimerContainer extends React.Component {
 
@@ -9,9 +10,7 @@ class TimerContainer extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-12">
-          Timer Container
-        </div>
+        <Timer />
       </div>
     )
   }

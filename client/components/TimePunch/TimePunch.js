@@ -8,9 +8,15 @@ class TimePunch extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-xs-12">
-          Time Punch
+      <div className="timePunch col-xs-12">
+        <div className="well col-xs-12">
+          <div className="col-xs-6">
+            <div>8h 16m</div>
+            <div>9:48am - 6:04pm</div>
+          </div>
+          <div className="col-xs-6 text-right">
+            $200.69
+          </div>
         </div>
       </div>
     )

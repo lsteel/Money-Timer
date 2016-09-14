@@ -21457,9 +21457,9 @@
 
 	var _MenuIcon2 = _interopRequireDefault(_MenuIcon);
 
-	var _Search = __webpack_require__(178);
+	var _Filter = __webpack_require__(178);
 
-	var _Search2 = _interopRequireDefault(_Search);
+	var _Filter2 = _interopRequireDefault(_Filter);
 
 	var _TimePunchContainer = __webpack_require__(179);
 
@@ -21489,7 +21489,12 @@
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	    _this.state = {};
+	    _this.state = {
+	      pay: 12,
+	      rate: 'hourly',
+	      timing: false,
+	      timePunches: []
+	    };
 	    return _this;
 	  }
 
@@ -21500,7 +21505,7 @@
 	        'div',
 	        { className: 'container-fluid' },
 	        _react2.default.createElement(_MenuIcon2.default, null),
-	        _react2.default.createElement(_Search2.default, null),
+	        _react2.default.createElement(_Filter2.default, null),
 	        _react2.default.createElement(_TimePunchContainer2.default, null),
 	        _react2.default.createElement(_TimePuncherContainer2.default, null),
 	        _react2.default.createElement(_TimerContainer2.default, null)
@@ -21904,11 +21909,20 @@
 	        { className: "row" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-xs-12" },
+	          { className: "col-xs-6" },
 	          _react2.default.createElement(
 	            "button",
-	            { className: "btn btn-default" },
+	            { className: "btn btn-lrg btn-info" },
 	            _react2.default.createElement("span", { className: "glyphicon glyphicon-cog" })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "col-xs-6 text-right" },
+	          _react2.default.createElement(
+	            "button",
+	            { className: "btn btn-link btn-danger" },
+	            "edit"
 	          )
 	        )
 	      );
@@ -21944,16 +21958,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Search = function (_React$Component) {
-	  _inherits(Search, _React$Component);
+	var Filter = function (_React$Component) {
+	  _inherits(Filter, _React$Component);
 
-	  function Search(props) {
-	    _classCallCheck(this, Search);
+	  function Filter(props) {
+	    _classCallCheck(this, Filter);
 
-	    return _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+	    return _possibleConstructorReturn(this, (Filter.__proto__ || Object.getPrototypeOf(Filter)).call(this, props));
 	  }
 
-	  _createClass(Search, [{
+	  _createClass(Filter, [{
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21965,7 +21979,7 @@
 	          _react2.default.createElement(
 	            "div",
 	            { className: "input-group" },
-	            _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "filter" }),
+	            _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "filter by tag" }),
 	            _react2.default.createElement(
 	              "span",
 	              { className: "input-group-addon" },
@@ -21977,10 +21991,10 @@
 	    }
 	  }]);
 
-	  return Search;
+	  return Filter;
 	}(_react2.default.Component);
 
-	exports.default = Search;
+	exports.default = Filter;
 
 /***/ },
 /* 179 */
@@ -22025,11 +22039,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-12' },
-	          'Time Punch Container'
-	        )
+	        _react2.default.createElement(_TimePunch2.default, null)
 	      );
 	    }
 	  }]);
@@ -22077,11 +22087,29 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "row" },
+	        { className: "timePunch col-xs-12" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-xs-12" },
-	          "Time Punch"
+	          { className: "well col-xs-12" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-6" },
+	            _react2.default.createElement(
+	              "div",
+	              null,
+	              "8h 16m"
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              null,
+	              "9:48am - 6:04pm"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-6 text-right" },
+	            "$200.69"
+	          )
 	        )
 	      );
 	    }
@@ -22135,11 +22163,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-xs-12' },
-	          'Time Puncher Container'
-	        )
+	        _react2.default.createElement(_TimePuncher2.default, null)
 	      );
 	    }
 	  }]);
@@ -22187,11 +22211,11 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "row" },
+	        { className: "col-xs-12 text-center" },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "col-xs-12" },
-	          "Time Puncher"
+	          "button",
+	          { className: "btn btn-lrg btn-primary" },
+	          _react2.default.createElement("span", { className: "glyphicon glyphicon-play" })
 	        )
 	      );
 	    }
@@ -22204,6 +22228,59 @@
 
 /***/ },
 /* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Timer = __webpack_require__(184);
+
+	var _Timer2 = _interopRequireDefault(_Timer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TimerContainer = function (_React$Component) {
+	  _inherits(TimerContainer, _React$Component);
+
+	  function TimerContainer(props) {
+	    _classCallCheck(this, TimerContainer);
+
+	    return _possibleConstructorReturn(this, (TimerContainer.__proto__ || Object.getPrototypeOf(TimerContainer)).call(this, props));
+	  }
+
+	  _createClass(TimerContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(_Timer2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return TimerContainer;
+	}(_react2.default.Component);
+
+	exports.default = TimerContainer;
+
+/***/ },
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22226,34 +22303,87 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var TimerContainer = function (_React$Component) {
-	  _inherits(TimerContainer, _React$Component);
+	var Timer = function (_React$Component) {
+	  _inherits(Timer, _React$Component);
 
-	  function TimerContainer(props) {
-	    _classCallCheck(this, TimerContainer);
+	  function Timer(props) {
+	    _classCallCheck(this, Timer);
 
-	    return _possibleConstructorReturn(this, (TimerContainer.__proto__ || Object.getPrototypeOf(TimerContainer)).call(this, props));
+	    return _possibleConstructorReturn(this, (Timer.__proto__ || Object.getPrototypeOf(Timer)).call(this, props));
 	  }
 
-	  _createClass(TimerContainer, [{
+	  _createClass(Timer, [{
 	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "row" },
+	        { className: "col-xs-12" },
 	        _react2.default.createElement(
 	          "div",
-	          { className: "col-xs-12" },
-	          "Timer Container"
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-12" },
+	            _react2.default.createElement("span", { className: "glyphicon glyphicon-chevron-left" })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-12" },
+	            _react2.default.createElement(
+	              "h1",
+	              null,
+	              "$20.27"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-12" },
+	            _react2.default.createElement(
+	              "h3",
+	              null,
+	              "01H05M"
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-12" },
+	            _react2.default.createElement(
+	              "div",
+	              { className: "input-group" },
+	              _react2.default.createElement(
+	                "span",
+	                { className: "input-group-addon" },
+	                "#"
+	              ),
+	              _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "separate tags with commas" })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "row" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-12 text-center" },
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-lrg btn-danger" },
+	              _react2.default.createElement("span", { className: "glyphicon glyphicon-stop" })
+	            )
+	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return TimerContainer;
+	  return Timer;
 	}(_react2.default.Component);
 
-	exports.default = TimerContainer;
+	exports.default = Timer;
 
 /***/ }
 /******/ ]);
