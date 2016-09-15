@@ -19,16 +19,19 @@ class App extends Component {
       pay: 12,
       rate: 'hourly',
       timing: false,
+      activeTPId: 0,
       timePunches: [
         {
           id: 1,
           timeStart: new Date().getTime() - 100000,
-          timeEnd: new Date().getTime()
+          timeEnd: new Date().getTime(),
+          active: false
         },
         {
           id: 2,
           timeStart: new Date().getTime() - 1000000,
-          timeEnd: new Date().getTime() - 200000
+          timeEnd: new Date().getTime() - 200000,
+          active: false
         }
       ]
     }
